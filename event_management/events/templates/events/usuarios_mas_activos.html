@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Usuarios más activos</h2>
+  
+  <ol>
+  {% for usuario in usuarios_activos %}
+    <li>
+      {{ usuario.username }} - {{ usuario.num_registros }} eventos registrados
+      <a href="{% url 'eventos_organizados_por_usuario' usuario.id %}" class="btn btn-sm btn-info">Ver eventos organizados</a>
+    </li>
+  {% empty %}
+    <li>No hay usuarios activos.</li>
+  {% endfor %}
+  </ol>
+
+  <a href="{% url 'lista_eventos' %}" class="btn btn-secondary">Volver a la lista de eventos</a>
+{% endblock %}

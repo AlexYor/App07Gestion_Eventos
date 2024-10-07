@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Eliminar Evento: {{ evento.titulo }}</h2>
+  <p>¿Estás seguro de que quieres eliminar este evento?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+  </form>
+  <a href="{% url 'detalle_evento' evento.pk %}">No, cancelar</a>
+{% endblock %}

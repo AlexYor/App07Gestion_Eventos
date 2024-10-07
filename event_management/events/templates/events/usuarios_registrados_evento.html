@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Usuarios registrados en {{ evento.titulo }}</h2>
+  <p>Cantidad de usuarios registrados: {{ cantidad_usuarios }}</p>
+  
+  <ul>
+  {% for registro in evento.registros.all %}
+    <li>{{ registro.usuario.username }} - {{ registro.fecha_registro }}</li>
+  {% empty %}
+    <li>No hay usuarios registrados en este evento.</li>
+  {% endfor %}
+  </ul>
+
+  <a href="{% url 'detalle_evento' evento.pk %}" class="btn btn-secondary">Volver al evento</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Mis Registros</h2>
+  {% for registro in registros %}
+    <div>
+      <h3>{{ registro.evento.titulo }}</h3>
+      <p>Fecha de registro: {{ registro.fecha_registro }}</p>
+      <p>Estado: {{ registro.get_estado_display }}</p>
+      <a href="{% url 'actualizar_registro' registro.pk %}">Actualizar Registro</a>
+      <a href="{% url 'cancelar_registro' registro.pk %}">Cancelar Registro</a>
+    </div>
+  {% empty %}
+    <p>No tienes registros en eventos.</p>
+  {% endfor %}
+{% endblock %}

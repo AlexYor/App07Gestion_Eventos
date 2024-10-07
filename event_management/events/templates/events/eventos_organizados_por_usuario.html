@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Eventos organizados por {{ usuario.username }}</h2>
+  <p>Cantidad de eventos organizados: {{ cantidad_eventos }}</p>
+  
+  <ul>
+  {% for evento in eventos %}
+    <li>
+      <a href="{% url 'detalle_evento' evento.pk %}">{{ evento.titulo }}</a> - {{ evento.fecha_inicio }}
+    </li>
+  {% empty %}
+    <li>Este usuario no ha organizado ningún evento.</li>
+  {% endfor %}
+  </ul>
+
+  <a href="{% url 'usuarios_mas_activos' %}" class="btn btn-secondary">Volver a usuarios más activos</a>
+{% endblock %}

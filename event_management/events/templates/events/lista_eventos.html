@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Lista de Eventos</h2>
+  
+  <div class="mb-3">
+    <a href="{% url 'crear_evento' %}" class="btn btn-primary">Crear Nuevo Evento</a>
+    <a href="{% url 'eventos_este_mes' %}" class="btn btn-info">Ver eventos de este mes</a>
+    <a href="{% url 'usuarios_mas_activos' %}" class="btn btn-info">Ver usuarios más activos</a>
+  </div>
+
+  {% for evento in page_obj %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ evento.titulo }}</h5>
+        <p class="card-text">{{ evento.descripcion|truncatewords:30 }}</p>
+        <p class="card-text"><small class="text-muted">{{ evento.fecha_inicio }}</small></p>
+        <a href="{% url 'detalle_evento' evento.pk %}" class="btn btn-primary">Ver detalles</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>No hay eventos disponibles.</p>
+  {% endfor %}
+
+  {% if page_obj.has_other_pages %}
+    <nav>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}

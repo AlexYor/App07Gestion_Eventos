@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Cancelar Registro: {{ registro.evento.titulo }}</h2>
+  <p>¿Estás seguro de que quieres cancelar tu registro en este evento?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, cancelar registro</button>
+  </form>
+  <a href="{% url 'mis_registros' %}">No, volver a mis registros</a>
+{% endblock %}
